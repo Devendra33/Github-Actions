@@ -18,3 +18,10 @@ jobs:
 
       - name: Machine User
         run: echo "Machine User - $USER"
+
+# show-verison is the Second job
+  show-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Docker and Python
+        run: docker --version && python --version
