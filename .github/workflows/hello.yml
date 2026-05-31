@@ -1,7 +1,7 @@
 # Name of the github actions pipeline
 name: Hello
 
-# Trigger Condition
+# Trigger Condition - when changes detects in main (this is continous deployment)
 on:
   push:
     branches: [main]
