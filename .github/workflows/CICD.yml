@@ -1,0 +1,33 @@
+# This Name will be visible on github action tab [Pipeline Name]
+name: CICD
+
+on:
+  workflow_dispatch: # For manaul trigger
+
+jobs: # Jobs Defination.
+
+  code-checkout:                                  # Job 1
+    runs-on: ubuntu-latest*
+    steps:
+      - name: "code checkout"
+        run: echo "Copying the code from repo to pipeline"
+        
+  build:                                          # Job 2
+    runs-on: ubuntu-latest*
+    steps:
+      - name: "Build"
+        run: echo "Building the code using docker/ any technology"
+        
+  test:                                           # Job 3
+    runs-on: ubuntu-latest*
+    steps:
+      - name: "Code Tests"
+        run: echo "Testing to be done before deploying the code"
+        
+  deploy:                                         # Job 4
+    runs-on: ubuntu-latest*
+    steps:
+      - name: "Deployment"
+        run: echo "Deploy the code to Servers"
+  
+  
