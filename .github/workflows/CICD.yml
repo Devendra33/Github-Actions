@@ -1,33 +1,40 @@
 # This Name will be visible on github action tab [Pipeline Name]
 name: CICD
 
-on:
-  workflow_dispatch: # For manaul trigger
+on:                # Trigger Condition - Manually
+  workflow_dispatch:
+
+# on:       # Trigger Condition - when changes detects in main (this is continous deployment)
+#   push:
+#     branches: [main]
 
 jobs: # Jobs Defination.
 
-  code-checkout:                                  # Job 1
-    runs-on: ubuntu-latest*
+  code-checkout: # Job 1
+    runs-on: ubuntu-latest
     steps:
-      - name: "code checkout"
+      - name: code checkout
         run: echo "Copying the code from repo to pipeline"
         
-  build:                                          # Job 2
-    runs-on: ubuntu-latest*
+  build:  # Job 2
+    needs: [code-checkout]   # This is Depends on block can take multiple arguments
+    runs-on: ubuntu-latest
     steps:
-      - name: "Build"
+      - name: Build
         run: echo "Building the code using docker/ any technology"
         
-  test:                                           # Job 3
-    runs-on: ubuntu-latest*
+  test:  # Job 3
+    needs: [build]         # This is Depends on block can take multiple arguments
+    runs-on: ubuntu-latest
     steps:
-      - name: "Code Tests"
+      - name: Code Tests
         run: echo "Testing to be done before deploying the code"
         
-  deploy:                                         # Job 4
-    runs-on: ubuntu-latest*
+  deploy: # Job 4
+    needs: [test, build]      # This is Depends on block can take multiple arguments
+    runs-on: ubuntu-latest
     steps:
-      - name: "Deployment"
+      - name: Deployment
         run: echo "Deploy the code to Servers"
   
   
