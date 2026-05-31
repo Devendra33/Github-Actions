@@ -1,0 +1,20 @@
+# Name of the github actions pipeline
+name: Hello
+
+# Trigger Condition
+on:
+  push:
+    branches: [main]
+
+# Job Defination
+jobs:
+
+# greet is the first job
+  greet:
+    runs-on: ubuntu-latest   # Runner provided by github
+    steps:    # Steps defination
+      - name: Say hello
+        run: echo "Hello Devendra from Github Actions Task"
+
+      - name: Machine User
+        run: echo "Machine User - $USER"
