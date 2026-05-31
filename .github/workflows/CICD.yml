@@ -7,7 +7,7 @@ on:                # Trigger Condition - Manually
 # on:       # Trigger Condition - when changes detects in main (this is continous deployment)
 #   push:
 #     branches: [main]
-#     path:   (path is optional)
+#     paths:   (path is optional)
         # - "**.md"
 
 jobs: # Jobs Defination.
