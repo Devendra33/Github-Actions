@@ -1,10 +1,12 @@
 # Name of the github actions pipeline
 name: Hello
 
-# Trigger Condition - when changes detects in main (this is continous deployment)
+# Trigger Condition - when changes detects in main .md files (this is continous deployment)
 on:
   push:
     branches: [main]
+    paths:
+      - "**.md"
 
 # Job Defination
 jobs:
