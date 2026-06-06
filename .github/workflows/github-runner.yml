@@ -1,0 +1,22 @@
+name: Github Runner
+
+on:
+    workflow_dispatch:
+
+jobs:
+    ubuntu:
+      runs-on: ubuntu-latest
+      steps:
+        - name: ubuntu version
+          run:  cat /etc/os-release
+
+    windows:
+      runs-on: windows-latest
+      steps:
+        - name: windows version
+          run: Get-ComputerInfo | Select-Object WindowsProductName, CsName
+    macos:
+      runs-on: macos-latest
+      steps:
+        - name: macos-version
+          run: scutil --get HostName
