@@ -1,5 +1,7 @@
 echo "Passed Python-Version - $1"
 echo "Passed OS-Version - $2"
-version=$( python --version )
+pyversion=$( python --version )
+osversion=$( cat /etc/os-release )
 
-echo "Current Python Version - $version"
+echo "Current Python Version - $pyversion"
+echo "Current OS Version - $osversion"
