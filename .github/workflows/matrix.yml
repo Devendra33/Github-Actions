@@ -7,9 +7,14 @@ jobs:
     version-validation:
         strategy:
           fail-fast: false # false means all the test will be executed even if something is failed in between.
+          
           matrix:
             py-version: ["3.11", "3.12", "3.13"]
             os-version: ["ubuntu-22.04", "ubuntu-slim" ]
+            exclude: # Below combination will be ignored in matrix
+                - os-version: ubuntu-22.04
+                  py-version: "3.11"
+
         runs-on: ${{ matrix.os-version }}
         steps:
           - name: checkout code
