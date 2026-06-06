@@ -10,6 +10,17 @@ jobs:
         - name: ubuntu version
           run:  cat /etc/os-release
 
+        - name: packages version
+          run: |
+            echo "Docker Version"
+            docker --version
+            echo "python Version"
+            python --version
+            echo "Node Version"
+            node --version
+            echo "Git Version"
+            git --version
+
     windows:
       runs-on: windows-latest
       steps:
