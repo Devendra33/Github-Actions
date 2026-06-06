@@ -3,10 +3,12 @@ name: Hello
 
 # Trigger Condition - when changes detects in main .md files (this is continous deployment)
 on:
-  push:
-    branches: [main]
-    paths:
-      - "**.md"
+  workflow_dispatch:
+
+# Defining variables
+env:  
+  name: Devendra
+
 
 # Job Defination
 jobs:
@@ -16,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest   # Runner provided by github
     steps:    # Steps defination
       - name: Say hello
-        run: echo "Hello Devendra from Github Actions Task"
+        run: echo "Hello $name from Github Actions Task"
 
       - name: Machine User
         run: echo "Machine User - $USER"

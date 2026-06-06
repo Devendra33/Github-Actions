@@ -1,14 +1,29 @@
 # This Name will be visible on github action tab [Pipeline Name]
 name: CICD
 
-on:                # Trigger Condition - Manually
+# Trigger Condition - Manually
+on:                
   workflow_dispatch:
 
-# on:       # Trigger Condition - when changes detects in main (this is continous deployment)
+# Trigger Condition - when merged to main and any updates detected in .md files
+
+# on:       
 #   push:
 #     branches: [main]
-#     paths:   (path is optional)
-        # - "**.md"
+#     paths: 
+#      - "**.md"
+
+# Trigger Condition - when pull Request created
+
+# on:       
+#   pull:
+#     branches: [main]
+#     paths: 
+#      - "**.md"
+
+# Variables Defination
+env:
+  myvar: "Variable value"  # can be reffered as $myvar in steps
 
 jobs: # Jobs Defination.
 
@@ -26,14 +41,14 @@ jobs: # Jobs Defination.
         run: echo "Building the code using docker/ any technology"
         
   test:  # Job 3
-    needs: [build]         # This is Depends on block can take multiple arguments
+    needs: [build]       
     runs-on: ubuntu-latest
     steps:
       - name: Code Tests
         run: echo "Testing to be done before deploying the code"
         
   deploy: # Job 4
-    needs: [test, build]      # This is Depends on block can take multiple arguments
+    needs: [test, build]
     runs-on: ubuntu-latest
     steps:
       - name: Deployment
