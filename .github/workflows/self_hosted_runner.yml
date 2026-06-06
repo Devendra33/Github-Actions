@@ -5,7 +5,7 @@ on:
 
 jobs:
     Startup:
-        runs-on: [Devendra]
+        runs-on: [Devendra]  # Label present on self hosted agent
         steps:
           - name: Runner Configs
             run: |
