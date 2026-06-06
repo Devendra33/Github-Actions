@@ -1,0 +1,14 @@
+name: Self-Hosted Runner
+
+on:
+    workflow_dispatch:
+
+jobs:
+    Startup:
+        runs-on: [self-hosted, Dev]
+        steps:
+          - name: Runner Configs
+            run: |
+              echo hostname
+              echo uname
+              
