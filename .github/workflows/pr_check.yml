@@ -1,0 +1,12 @@
+name: Trigger_X_Matrix
+
+on:
+    pull_request:
+        branches: [main]
+
+jobs:
+  PR_Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Task-1
+        run: echo "Automatically triggers when PR is Created"
