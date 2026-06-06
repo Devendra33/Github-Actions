@@ -9,8 +9,8 @@ jobs:
           fail-fast: false # false means all the test will be executed even if something is failed in between.
           matrix:
             py-version: ["3.11", "3.12", "3.13"]
-
-        runs-on: ubuntu-latest
+            os-version: ["ubuntu-22.04", "ubuntu-slim" ]
+        runs-on: ${{ matrix.os-version }}
         steps:
           - name: checkout code
             uses: actions/checkout@v4 
@@ -20,5 +20,5 @@ jobs:
                 python-version: ${{ matrix.py-version }} 
 
           - name: Shell Script
-            run: sudo chmod u+x matrix.sh && ./matrix.sh ${{ matrix.py-version }}
+            run: sudo chmod u+x matrix.sh && ./matrix.sh ${{ matrix.py-version }} ${{ matrix.os-version }}
 
