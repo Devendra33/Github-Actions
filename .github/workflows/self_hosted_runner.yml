@@ -5,7 +5,7 @@ on:
 
 jobs:
     Startup:
-        runs-on: [self-hosted, Dev]
+        runs-on: [Devendra]
         steps:
           - name: Runner Configs
             run: |
@@ -14,5 +14,5 @@ jobs:
               echo "===Current Working Directory==="
               pwd
               echo "Folder Created at /home/ubuntu/DevOps"
-              mkdir -p /home/ubuntu/DevOps
+              mkdir -p /home/ubuntu/Devendra
 
