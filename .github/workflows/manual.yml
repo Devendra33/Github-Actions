@@ -1,0 +1,21 @@
+name: Manual Trigger with parameters
+
+on:
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: 'Environment to deploy'
+                required: true
+                default: 'dev'
+                type: choice
+                options:
+                - dev
+                - test
+                - prod                
+
+jobs:
+    manaul:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Manaul
+            run: echo "Echo passed environment ${{ inputs.environment }}"
