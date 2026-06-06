@@ -13,6 +13,6 @@ jobs:
               hostname
               echo "===Current Working Directory==="
               pwd
-              echo "Folder Created at /home/ubuntu/DevOps"
+              echo "Folder Created at /home/ubuntu/Devendra"
               mkdir -p /home/ubuntu/Devendra
 
