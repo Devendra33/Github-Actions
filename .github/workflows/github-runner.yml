@@ -14,9 +14,30 @@ jobs:
       runs-on: windows-latest
       steps:
         - name: windows version
-          run: Get-ComputerInfo | Select-Object WindowsProductName, CsName
+          run: |
+            Write-Host "=== GitHub Runner OS Variables ==="
+            Write-Host "Runner OS: ${{ runner.os }}"
+            Write-Host "Runner Image: $env:ImageVersion"
+            
+            Write-Host "=== System OS Details ==="
+            [System.Environment]::OSVersion.Version
+            Get-CimInstance Win32_OperatingSystem | Select-Object Caption, Version, BuildNumber
+            
+            Write-Host "=== System Host Name ==="
+            hostname
+            $env:COMPUTERNAME
     macos:
       runs-on: macos-latest
       steps:
         - name: macos-version
-          run: scutil --get HostName
+          run: |
+            echo "=== GitHub Runner OS Variables ==="
+            echo "Runner OS: ${{ runner.os }}"
+            echo "Runner Image: $ImageVersion"
+            
+            echo "=== System OS Details ==="
+            sw_vers
+            
+            echo "=== System Host Name ==="
+            hostname
+            scutil --get LocalHostName
