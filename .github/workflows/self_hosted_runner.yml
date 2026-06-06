@@ -9,5 +9,10 @@ jobs:
         steps:
           - name: Runner Configs
             run: |
+              echo "===Hostname==="
               hostname
-              uname
+              echo "===Current Working Directory==="
+              pwd
+              echo "Folder Created at /home/ubuntu/DevOps"
+              mkdir -p /home/ubuntu/DevOps
+
