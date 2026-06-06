@@ -1,9 +1,19 @@
 # This Name will be visible on github action tab [Pipeline Name]
 name: CICD
 
-# Trigger Condition - Manually
+# Trigger Condition - Manually with option pass env to deploy
 on:                
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - test
+          - prod
 
 # Trigger Condition - when merged to main and any updates detected in .md files
 
