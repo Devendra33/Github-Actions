@@ -1,0 +1,23 @@
+name: matrix
+
+on:
+    workflow_dispatch:
+
+jobs:
+    version-validation:
+        strategy:
+          fail-fast: false # false means all the test will be executed even if something is failed in between.
+          matrix:
+            py-version: ["3.11", "3.12", "3.13"]
+
+        runs-on: ubuntu-latest
+        steps:
+          - name: checkout code
+            uses: actions/checkout@v4 
+
+          - uses: actions/setup-python@v6
+            with:
+                python-version: ${{ matrix.py-version }} 
+          - name: Shell Script
+            run: ./matrix.sh ${{ matrix.py-version }}
+
