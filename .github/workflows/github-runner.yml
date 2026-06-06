@@ -12,13 +12,10 @@ jobs:
 
         - name: packages version
           run: |
-            echo "Docker Version"
             docker --version
-            echo "python Version"
             python --version
-            echo "Node Version"
-            node --version
-            echo "Git Version"
+            nv=$(node --version)
+            echo "Node Version $nv"
             git --version
 
     windows:
