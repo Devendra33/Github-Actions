@@ -9,6 +9,5 @@ jobs:
         steps:
           - name: Runner Configs
             run: |
-              echo hostname
-              echo uname
-              
+              hostname
+              uname
