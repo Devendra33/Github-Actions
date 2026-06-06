@@ -1,4 +1,4 @@
-name: Trigger_X_Matrix
+name: Triggers
 
 on:
     pull_request:
