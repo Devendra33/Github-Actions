@@ -18,12 +18,7 @@ jobs:
           - uses: actions/setup-python@v6
             with:
                 python-version: ${{ matrix.py-version }} 
-<<<<<<< HEAD
 
           - name: Shell Script
             run: sudo chmod u+x matrix.sh && ./matrix.sh ${{ matrix.py-version }}
-=======
-          - name: Shell Script
-            run: ./matrix.sh ${{ matrix.py-version }}
->>>>>>> e1afb775b793cf83d89b9335115905aa52006a69
 
