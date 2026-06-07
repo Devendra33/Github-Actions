@@ -3,6 +3,12 @@ name: Multi-Jobs
 on:
     workflow_dispatch:
 
+    push:
+        branches: [main]
+
+    pull_request:
+        branches: [main]
+
 # Defining Environment variable at work flow level available in all the jobs
 env:
     APP_NAME: myapp
@@ -10,7 +16,7 @@ env:
 jobs:
 
     build:
-
+      
       # Defining Environment variable at job level available in all the steps present that job        
       env:    
         ENVIRONMENT: staging
@@ -24,7 +30,8 @@ jobs:
         - name: Build App 
           run: echo "Building the App"
         - name: Environment Variable
-
+        # Run this step if only previous step is failed.
+          if: failure()
           # Defining Environment variable at Steps level available in all the steps present that job
           env:
             VERSION: 1.0.0
@@ -43,9 +50,16 @@ jobs:
     test:
       needs: [build]
       runs-on: ubuntu-latest
+      # Runs when previous job is successfull. Possible values failure, cancelled and skipped
+      # Example - if we want to run this job if previous job is failed then if:failure().
+      if: success()  
       steps:
         - name: Test App
           run: echo "Testing the App"
+          # The Next step (Environment Variable) will also run if the current step is failed.env:
+          # by default if 1 step task is failed then later steps are skipped. 
+          continue-on-error: true
+
         - name: Environment Variable
           run: |
             echo "All Level of Environment variables"
@@ -56,6 +70,9 @@ jobs:
     deploy:
       needs: [test]
       runs-on: ubuntu-latest
+
+      # runs this steps when branch is main
+      if: github.ref == 'refs/heads/main'
       steps:
         - name: Deploy App
           run: echo "Deploying the App"
@@ -68,6 +85,8 @@ jobs:
 
     output:
         runs-on: ubuntu-latest
+        # runs this steps when branch is main
+        if: github.ref == 'refs/heads/main'
         needs: [build, deploy]
         steps:
           - name: Date and name
