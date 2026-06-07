@@ -1,0 +1,36 @@
+name: Smart Pipeline
+
+# Trigger on push to any branch
+on:
+    workflow_dispatch:
+    push:
+
+jobs:
+    lint:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Lint
+          run: echo "Running Lint job"
+    test:
+      runs-on: ubuntu-latest  
+      steps:
+        - name: Lint
+          run: echo "Running Lint job"
+
+    summary:
+      runs-on: ubuntu-latest
+      needs: [lint, test]
+      steps:
+      - name: Branch Summary
+        run: |
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            echo "This is a main branch push"
+          else
+            echo "This is a feature branch push"
+          fi
+
+      - name: Print Commit Message
+        run: |
+          echo "Commit Message:"
+          echo "${{ github.event.head_commit.message }}"
+
