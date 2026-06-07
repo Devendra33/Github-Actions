@@ -3,7 +3,8 @@ name: Smart Pipeline
 # Trigger on push to any branch
 on:
     workflow_dispatch:
-    push:
+    # if we uncomment below push then pipeline will trigger to push event on any branch
+    # push:
 
 jobs:
     lint:
