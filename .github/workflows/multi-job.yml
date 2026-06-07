@@ -35,6 +35,12 @@ jobs:
       steps:
         - name: Test App
           run: echo "Testing the App"
+        - name: Environment Variable
+          run: |
+            echo "All Level of Environment variables"
+            echo "worflow level variable - $APP_NAME"
+            echo "job level variable - $ENVIRONMENT"
+            echo "step level variable - $VERSION" 
 
     deploy:
       needs: [test]
@@ -42,3 +48,9 @@ jobs:
       steps:
         - name: Deploy App
           run: echo "Deploying the App"
+        - name: Environment Variable
+          run: |
+            echo "All Level of Environment variables"
+            echo "worflow level variable - $APP_NAME"
+            echo "job level variable - $ENVIRONMENT"
+            echo "step level variable - $VERSION"
