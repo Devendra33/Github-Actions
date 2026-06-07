@@ -8,6 +8,7 @@ env:
     APP_NAME: myapp
 
 jobs:
+
     build:
 
       # Defining Environment variable at job level available in all the steps present that job        
@@ -15,6 +16,10 @@ jobs:
         ENVIRONMENT: staging
 
       runs-on: ubuntu-latest
+      outputs:
+        date: ${{ steps.date.outputs.today }}
+        name: ${{ steps.date.outputs.name }}
+
       steps:
         - name: Build App 
           run: echo "Building the App"
@@ -28,6 +33,12 @@ jobs:
             echo "worflow level variable - $APP_NAME"
             echo "job level variable - $ENVIRONMENT"
             echo "step level variable - $VERSION"
+
+        - name: date today
+          id: date
+          run: |
+           echo "today=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+           echo "name=Devendra" >> $GITHUB_OUTPUT
 
     test:
       needs: [build]
@@ -54,3 +65,10 @@ jobs:
             echo "worflow level variable - $APP_NAME"
             echo "job level variable - $ENVIRONMENT"
             echo "step level variable - $VERSION"
+
+    output:
+        runs-on: ubuntu-latest
+        needs: [build, deploy]
+        steps:
+          - name: Date and name
+            run: echo "Hi ${{ needs.build.outputs.name }} today date is ${{ needs.build.outputs.date }}" 
