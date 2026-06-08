@@ -19,6 +19,7 @@ jobs:
         - name: Docker Build
           run: docker build -t dockercicd_app:${{ github.sha }} .
         
+        # It will not run if called by a PR. Only runs when changes are pushed to main branch because of if:github.ref == 'refs/heads/main'
         - name: Login to Docker Hub
           if: github.ref == 'refs/heads/main'
           uses: docker/login-action@v4
@@ -32,7 +33,4 @@ jobs:
             docker tag dockercicd_app:${{ github.sha }} ${{ vars.DOCKER_USERNAME }}/dockercicd_app:${{ github.sha }} 
             docker tag dockercicd_app:${{ github.sha }} ${{ vars.DOCKER_USERNAME }}/dockercicd_app:latest
             docker push ${{ vars.DOCKER_USERNAME }}/dockercicd_app --all-tags
-
-
-
 
