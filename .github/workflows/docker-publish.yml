@@ -25,4 +25,4 @@ jobs:
           with:
             context: .
             push: true
-            tags: ${{ vars.DOCKER_USERNAME }}/dockercicd_app:${{ github.sha }}-
+            tags: ${{ vars.DOCKER_USERNAME }}/dockercicd_app:${{ github.sha }}
