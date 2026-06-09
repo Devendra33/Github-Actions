@@ -1,0 +1,32 @@
+name: Reusable Build
+
+on:
+    workflow_call:
+        inputs:
+          app_name:
+            required: true
+            type: string
+          environment:
+            required: true
+            type: string
+            default: staging
+        
+jobs:
+    Build:
+      runs-on: ubuntu-latest
+      steps: 
+        - name: checkout code
+          run: actions/checkout@v6
+        - name: Build App
+          run: echo "Building $app_name for $environment" 
+
+    Secret_check:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Check Secret
+          run: |
+            if [[ -n ${{ secrets.DOCKER_TOKEN }} ]]; then
+              echo "Secret is present"
+            else
+              echo "Secret is NOT present"
+            fi  
