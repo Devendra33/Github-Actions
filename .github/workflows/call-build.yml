@@ -12,6 +12,18 @@ jobs:
       with:
         app_name: "my-web-app"
         environment: "production"
+      # We can pass the secrets directly using secrets: inherit
       secrets:
         docker_token: ${{ secrets.DOCKER_TOKEN }}
+
+    Build_Verison:
+      runs-on: ubuntu latest
+      needs: [Build]
+      steps:
+        - name: Print output from flow
+          env:
+            build: ${{ needs.Build.outputs.build_version }}
+          run: echo "Build Verison - $build"
+          
+
         
