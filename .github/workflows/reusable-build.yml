@@ -12,7 +12,7 @@ on:
             default: staging
         secrets:
           docker_token:
-            required: false
+            required: true
 
 jobs:
     Build:
@@ -29,7 +29,7 @@ jobs:
       steps:
         - name: Check Secret
           run: |
-            if [[ -n ${{ secrets.DOCKER_TOKEN }} ]]; then
+            if [[ -n ${{ secrets.docker_token }} ]]; then
               echo "Secret is present"
             else
               echo "Secret is NOT present"
