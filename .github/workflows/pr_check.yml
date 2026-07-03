@@ -15,4 +15,70 @@ jobs:
       - name: Task-1
         run: echo "Automatically triggers when PR is Created"
 
+      - name: Check for files larger than 1 MB
+        run: |
+          echo "Checking changed files..."
+
+          git fetch origin ${{ github.event.pull_request.base.ref }}
+
+          files=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD)
+
+          failed=false
+
+          for file in $files
+          do
+            if [ -f "$file" ]; then
+              size=$(stat -c%s "$file")
+
+              if [ "$size" -gt 1048576 ]; then
+                echo "❌ $file is larger than 1 MB ($(numfmt --to=iec $size))"
+                failed=true
+              else
+                echo "✅ $file ($(numfmt --to=iec $size))"
+              fi
+            fi
+          done
+
+          if [ "$failed" = true ]; then
+            echo "One or more files exceed 1 MB."
+            exit 1
+          fi
+
+  branch-name-check:
+    name: Branch Name Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate branch name
+        run: |
+          BRANCH="${{ github.head_ref }}"
+
+          echo "Branch: $BRANCH"
+
+          if [[ "$BRANCH" =~ ^(feature|fix|docs)/.+$ ]]; then
+            echo "✅ Branch name is valid."
+          else
+            echo "❌ Invalid branch name."
+            echo "Branch names must start with:"
+            echo "  feature/"
+            echo "  fix/"
+            echo "  docs/"
+            exit 1
+          fi
+
+  pr-body-check:
+    name: PR Description Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check PR description
+        run: |
+          BODY="${{ github.event.pull_request.body }}"
+
+          if [ -z "$BODY" ]; then
+            echo "::warning::Pull Request description is empty."
+          else
+            echo "✅ PR description is present."
+          fi
+
 # Add a comment to create a PR Trigger Test
