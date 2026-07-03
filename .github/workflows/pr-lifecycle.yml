@@ -1,0 +1,28 @@
+name: Pull Request Lifecycle
+
+on:
+  pull_request:
+    types:
+      - opened  # opened → A new PR is created.
+      - synchronize # synchronize → New commits are pushed to the PR's source branch.
+      - reopened # reopened → A previously closed PR is reopened.
+      - closed # closed → The PR is closed (either merged or simply closed).
+
+jobs:
+  pr-info:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print PR Event Details
+        run: |
+          echo "Event Type      : ${{ github.event.action }}"
+          echo "PR Title        : ${{ github.event.pull_request.title }}"
+          echo "PR Author       : ${{ github.event.pull_request.user.login }}"
+          echo "Source Branch   : ${{ github.event.pull_request.head.ref }}"
+          echo "Target Branch   : ${{ github.event.pull_request.base.ref }}"
+
+      - name: Run only when PR is merged
+        if: github.event.action == 'closed' && github.event.pull_request.merged == true
+        run: |
+          echo "✅ Pull Request has been merged!"
+          echo "Merged by: ${{ github.event.pull_request.merged_by.login }}"
