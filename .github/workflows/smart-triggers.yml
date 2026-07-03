@@ -9,9 +9,10 @@ on:
       - 'src/**'
       - 'app/**'
 
-    paths-ignore:
-      - 'src/docs/**'
-      - 'app/**/*.md'
+# we can use only 1 at a time, means both cannot be used at same time on single yml file 
+    # paths-ignore:
+    #   - 'src/docs/**'
+    #   - 'app/**/*.md'
 
 jobs:
   build:
