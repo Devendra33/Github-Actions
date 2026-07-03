@@ -1,0 +1,25 @@
+name: Smart Trigger - Paths Filter
+
+on:
+  push:
+    branches:
+      - main
+
+    paths:
+      - 'src/**'
+      - 'app/**'
+
+    paths-ignore:
+      - 'src/docs/**'
+      - 'app/**/*.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Display Trigger Information
+        run: |
+          echo "Workflow triggered!"
+          echo "Branch : ${{ github.ref_name }}"
+          echo "Commit : ${{ github.sha }}"
