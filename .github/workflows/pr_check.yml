@@ -3,7 +3,9 @@ name: Triggers
 on:
     pull_request:
         branches: [main]
-
+        types:
+          - opened  # opened → A new PR is created.
+          - synchronize # synchronize → New commits are pushed to the PR's source branch.
 #  Cron job
     # schedule:
     #   - cron: '0 0 * * *'
@@ -14,15 +16,10 @@ jobs:
     steps:
       - name: Task-1
         run: echo "Automatically triggers when PR is Created"
-
+  
   file-size-check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout PR code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          
+      runs-on: ubuntu-latest
+      steps:
       - name: Check for files larger than 1 MB
         run: |
           echo "Checking changed files..."
