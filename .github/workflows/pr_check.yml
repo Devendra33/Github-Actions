@@ -20,6 +20,11 @@ jobs:
   file-size-check:
       runs-on: ubuntu-latest
       steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
       - name: Check for files larger than 1 MB
         run: |
           echo "Checking changed files..."
