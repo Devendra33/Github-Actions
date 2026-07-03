@@ -11,4 +11,5 @@ COPY index.html /usr/share/nginx/html/
 
 EXPOSE 80
 
+
 # usage: docker run -d -p 80:80 <imageId>
