@@ -1,0 +1,47 @@
+name: Scheduled Tasks
+
+on:
+  schedule:
+    # # Every Monday at 02:30 UTC
+    # - cron: '30 2 * * 1'
+
+    # # Every 6 hours
+    # - cron: '0 */6 * * *'
+
+  # Allows manual execution
+  workflow_dispatch:
+
+jobs:
+  scheduled-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Display Trigger Information
+        run: |
+          echo "Event Name : ${{ github.event_name }}"
+          echo "Schedule   : ${{ github.event.schedule }}"
+
+      - name: Identify Which Schedule Ran
+        run: |
+          if [[ "${{ github.event.schedule }}" == "30 2 * * 1" ]]; then
+            echo "🗓️ Weekly Monday schedule triggered."
+          elif [[ "${{ github.event.schedule }}" == "0 */6 * * *" ]]; then
+            echo "⏰ Every 6 hours schedule triggered."
+          else
+            echo "🚀 Manually triggered using workflow_dispatch."
+          fi
+
+      - name: Health Check
+        run: |
+          URL="https://www.google.com"
+
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+
+          echo "Response Code: $STATUS"
+
+          if [[ "$STATUS" == "200" ]]; then
+            echo "✅ Health check passed."
+          else
+            echo "❌ Health check failed."
+            exit 1
+          fi
