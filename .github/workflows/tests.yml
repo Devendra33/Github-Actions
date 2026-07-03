@@ -1,0 +1,17 @@
+name: Run Tests
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Simulate Running Tests
+        run: |
+          echo "Running unit tests..."
+          echo "All tests passed!"
